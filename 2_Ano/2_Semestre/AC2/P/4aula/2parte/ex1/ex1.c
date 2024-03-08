@@ -7,7 +7,7 @@ int main(void){
 
     LATDbits.LATD5 = 1;
     LATDbits.LATD6 = 0;
-    LATB = LATB | 0x7F00;
+    LATB = LATB | 0x0000;
     while(1){ 
         switch(getChar()){
             case 'a':

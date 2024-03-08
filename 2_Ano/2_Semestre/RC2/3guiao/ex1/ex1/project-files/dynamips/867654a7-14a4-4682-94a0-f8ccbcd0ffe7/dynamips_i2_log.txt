@@ -1,0 +1,94 @@
+Mar 08 11:57:14.995 HYPERVISOR: Release 0.2.23-amd64/Linux (tag 2023010200)
+Mar 08 11:57:14.995 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 52785.
+Mar 08 11:57:15.004 HYPERVISOR: exec_cmd: hypervisor version 
+Mar 08 11:57:15.004 HYPERVISOR: exec_cmd: hypervisor working_dir /home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips 
+Mar 08 11:57:15.004 GENERAL: working_dir=/home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips
+Mar 08 11:57:15.004 HYPERVISOR: exec_cmd: hypervisor working_dir /home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips/6c60468b-c288-447f-bb45-509c318290d0 
+Mar 08 11:57:15.004 GENERAL: working_dir=/home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips/6c60468b-c288-447f-bb45-509c318290d0
+Mar 08 11:57:15.005 HYPERVISOR: exec_cmd: vm create R1 1 c7200 
+Mar 08 11:57:15.005 VM: VM R1 created.
+Mar 08 11:57:15.005 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5001 
+Mar 08 11:57:15.005 HYPERVISOR: exec_cmd: c7200 get_mac_addr R1 
+Mar 08 11:57:15.005 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:15.005 HYPERVISOR: exec_cmd: vm slot_add_binding R1 0 0 C7200-IO-FE 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: vm set_disk0 R1 0 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: vm set_ios R1 /home/tiago/GNS3/images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: c7200 set_mac_addr R1 ca01.2484.0000 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: vm set_nvram R1 512 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: vm set_ram R1 512 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:15.006 HYPERVISOR: exec_cmd: vm slot_remove_binding R1 0 0 
+Mar 08 11:57:15.007 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:15.007 HYPERVISOR: exec_cmd: vm slot_add_binding R1 0 0 C7200-IO-2FE 
+Mar 08 11:57:15.007 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:15.007 HYPERVISOR: exec_cmd: vm slot_add_binding R1 1 0 PA-2FE-TX 
+Mar 08 11:57:15.007 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5001 
+Mar 08 11:57:15.275 HYPERVISOR: exec_cmd: nio create_udp udp-8bf73349-49a1-4986-8efa-ebecec134268 20002 127.0.0.1 20003 
+Mar 08 11:57:15.481 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 1 0 udp-8bf73349-49a1-4986-8efa-ebecec134268 
+Mar 08 11:57:15.482 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:15.531 HYPERVISOR: exec_cmd: nio create_udp udp-9d8901ca-ba36-4db1-b18d-7702a562cdae 20006 127.0.0.1 20007 
+Mar 08 11:57:15.532 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 0 1 udp-9d8901ca-ba36-4db1-b18d-7702a562cdae 
+Mar 08 11:57:15.533 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:15.573 HYPERVISOR: exec_cmd: nio create_udp udp-b1ee01d4-478f-42df-b9dd-0bd4ddd9f8a2 20010 127.0.0.1 20011 
+Mar 08 11:57:15.574 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 0 0 udp-b1ee01d4-478f-42df-b9dd-0bd4ddd9f8a2 
+Mar 08 11:57:15.574 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:24.512 HYPERVISOR: exec_cmd: vm create Ghost 0 c7200 
+Mar 08 11:57:24.512 VM: VM Ghost created.
+Mar 08 11:57:24.513 HYPERVISOR: exec_cmd: vm set_ios Ghost /home/tiago/GNS3/images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
+Mar 08 11:57:24.513 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
+Mar 08 11:57:24.513 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost /home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips/c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Mar 08 11:57:24.513 HYPERVISOR: exec_cmd: vm set_ram Ghost 512 
+Mar 08 11:57:24.513 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Mar 08 11:57:24.513 HYPERVISOR: exec_cmd: vm set_config Ghost configs/i0_startup-config.cfg 
+Mar 08 11:57:24.514 HYPERVISOR: exec_cmd: vm start Ghost 
+Mar 08 11:57:24.852 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Mar 08 11:57:24.853 HYPERVISOR: exec_cmd: vm stop Ghost 
+Mar 08 11:57:24.970 VM: VM Ghost shutdown.
+Mar 08 11:57:24.971 HYPERVISOR: exec_cmd: vm extract_config Ghost 
+Mar 08 11:57:24.971 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
+Mar 08 11:57:24.971 VM: VM Ghost destroyed.
+Mar 08 11:57:24.972 HYPERVISOR: exec_cmd: vm set_ghost_status R1 2 
+Mar 08 11:57:24.973 HYPERVISOR: exec_cmd: vm set_ghost_file R1 /home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips/c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Mar 08 11:57:24.973 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:57:24.973 HYPERVISOR: exec_cmd: vm set_config R1 configs/i1_startup-config.cfg configs/i1_private-config.cfg 
+Mar 08 11:57:24.973 HYPERVISOR: exec_cmd: vm start R1 
+Mar 08 11:57:55.220 HYPERVISOR: exec_cmd: vm extract_config R1 
+Mar 08 11:58:45.209 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:58:45.209 HYPERVISOR: exec_cmd: vm stop R1 
+Mar 08 11:58:45.283 VM: VM R1 shutdown.
+Mar 08 11:58:45.284 HYPERVISOR: exec_cmd: vm extract_config R1 
+Mar 08 11:59:47.129 HYPERVISOR: exec_cmd: vm set_ghost_status R1 2 
+Mar 08 11:59:47.130 HYPERVISOR: exec_cmd: vm set_ghost_file R1 /home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips/c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Mar 08 11:59:47.130 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 11:59:47.130 HYPERVISOR: exec_cmd: vm set_config R1 configs/i1_startup-config.cfg configs/i1_private-config.cfg 
+Mar 08 11:59:47.130 HYPERVISOR: exec_cmd: vm start R1 
+Mar 08 12:00:04.479 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:00:04.485 HYPERVISOR: exec_cmd: vm set_idle_pc_online R1 0 0x60608040 
+Mar 08 12:00:33.619 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:00:33.619 HYPERVISOR: exec_cmd: vm set_idle_pc_online R1 0 0x0 
+Mar 08 12:00:33.619 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:00:33.619 HYPERVISOR: exec_cmd: vm get_idle_pc_prop R1 0 
+Mar 08 12:00:47.508 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:00:47.508 HYPERVISOR: exec_cmd: vm stop R1 
+Mar 08 12:00:47.588 VM: VM R1 shutdown.
+Mar 08 12:00:47.588 HYPERVISOR: exec_cmd: vm extract_config R1 
+Mar 08 12:01:04.076 HYPERVISOR: exec_cmd: vm set_ghost_status R1 2 
+Mar 08 12:01:04.077 HYPERVISOR: exec_cmd: vm set_ghost_file R1 /home/tiago/Public/UA/GNS3/aula3/ex1/ex1/project-files/dynamips/c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Mar 08 12:01:04.077 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:01:04.077 HYPERVISOR: exec_cmd: vm set_config R1 configs/i1_startup-config.cfg configs/i1_private-config.cfg 
+Mar 08 12:01:04.077 HYPERVISOR: exec_cmd: vm start R1 
+Mar 08 12:08:42.366 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:08:42.394 HYPERVISOR: exec_cmd: vm set_idle_pc_online R1 0 0x60608040 
+Mar 08 12:08:59.730 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:08:59.730 HYPERVISOR: exec_cmd: vm stop R1 
+Mar 08 12:08:59.843 VM: VM R1 shutdown.
+Mar 08 12:08:59.843 HYPERVISOR: exec_cmd: vm extract_config R1 
+Mar 08 12:09:05.404 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:09:05.405 HYPERVISOR: exec_cmd: vm extract_config R1 
+Mar 08 12:09:05.538 HYPERVISOR: exec_cmd: vm get_status R1 
+Mar 08 12:09:05.538 HYPERVISOR: exec_cmd: vm extract_config R1 
+Mar 08 12:09:05.539 HYPERVISOR: exec_cmd: vm delete R1 
+Mar 08 12:09:05.539 VM: VM R1 destroyed.
+Mar 08 12:09:05.539 HYPERVISOR: exec_cmd: hypervisor stop 
+Mar 08 12:09:05.653 HYPERVISOR: Stopped.
+Mar 08 12:09:05.653 GENERAL: reset done.

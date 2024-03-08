@@ -12,7 +12,7 @@ int main(void){
         LATE = (LATE & 0xFF87) | counter << 3;  // Alinhar o contador com os bits 3-6
                                                 // por isso, shiftamos 3 vezes para a esquerda
         resetCoreTimer();
-        while(readCoreTimer() < 4347826);
+        while(readCoreTimer() < 4347826 );
         counter = (counter + 1) % 10;
     }
     return 0;
