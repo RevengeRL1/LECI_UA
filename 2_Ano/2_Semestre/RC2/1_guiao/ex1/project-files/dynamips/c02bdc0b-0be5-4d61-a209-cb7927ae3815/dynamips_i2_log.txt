@@ -1,0 +1,45 @@
+Feb 16 11:42:53.187 HYPERVISOR: Release 0.2.23-amd64/Linux (tag 2023010200)
+Feb 16 11:42:53.187 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 38513.
+Feb 16 11:42:53.189 HYPERVISOR: exec_cmd: hypervisor version 
+Feb 16 11:42:53.190 HYPERVISOR: exec_cmd: hypervisor working_dir /home/tiago/Public/UA/Ano2/RC2/GNS3/aula1/untitled/project-files/dynamips 
+Feb 16 11:42:53.190 GENERAL: working_dir=/home/tiago/Public/UA/Ano2/RC2/GNS3/aula1/untitled/project-files/dynamips
+Feb 16 11:42:53.191 HYPERVISOR: exec_cmd: hypervisor working_dir /home/tiago/Public/UA/Ano2/RC2/GNS3/aula1/untitled/project-files/dynamips/c02bdc0b-0be5-4d61-a209-cb7927ae3815 
+Feb 16 11:42:53.191 GENERAL: working_dir=/home/tiago/Public/UA/Ano2/RC2/GNS3/aula1/untitled/project-files/dynamips/c02bdc0b-0be5-4d61-a209-cb7927ae3815
+Feb 16 11:42:53.191 HYPERVISOR: exec_cmd: vm create ESW1 2 c3725 
+Feb 16 11:42:53.192 VM: VM ESW1 created.
+Feb 16 11:42:53.192 HYPERVISOR: exec_cmd: vm set_con_tcp_port ESW1 5001 
+Feb 16 11:42:53.193 HYPERVISOR: exec_cmd: c3725 get_mac_addr ESW1 
+Feb 16 11:42:53.193 HYPERVISOR: exec_cmd: vm set_disk0 ESW1 1 
+Feb 16 11:42:53.195 HYPERVISOR: exec_cmd: vm set_ios ESW1 /home/tiago/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Feb 16 11:42:53.195 HYPERVISOR: exec_cmd: c3725 set_mac_addr ESW1 c202.6ad9.0000 
+Feb 16 11:42:53.196 HYPERVISOR: exec_cmd: vm set_nvram ESW1 256 
+Feb 16 11:42:53.197 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Feb 16 11:42:53.198 HYPERVISOR: exec_cmd: vm slot_add_binding ESW1 1 0 NM-16ESW 
+Feb 16 11:42:57.936 HYPERVISOR: exec_cmd: nio create_udp udp-6419b7da-efdf-43ec-9491-864d7e442b13 20004 127.0.0.1 20005 
+Feb 16 11:42:58.155 HYPERVISOR: exec_cmd: vm slot_add_nio_binding ESW1 0 0 udp-6419b7da-efdf-43ec-9491-864d7e442b13 
+Feb 16 11:42:58.156 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Feb 16 11:43:07.489 HYPERVISOR: exec_cmd: vm create Ghost 0 c3725 
+Feb 16 11:43:07.489 VM: VM Ghost created.
+Feb 16 11:43:07.491 HYPERVISOR: exec_cmd: vm set_ios Ghost /home/tiago/GNS3/images/IOS/c3725-advipservicesk9-mz.124-21.image 
+Feb 16 11:43:07.491 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
+Feb 16 11:43:07.492 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost /home/tiago/Public/UA/Ano2/RC2/GNS3/aula1/untitled/project-files/dynamips/c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Feb 16 11:43:07.493 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Feb 16 11:43:07.494 HYPERVISOR: exec_cmd: vm set_config Ghost configs/i0_startup-config.cfg 
+Feb 16 11:43:07.494 HYPERVISOR: exec_cmd: vm start Ghost 
+Feb 16 11:43:08.102 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Feb 16 11:43:08.104 HYPERVISOR: exec_cmd: vm stop Ghost 
+Feb 16 11:43:08.318 VM: VM Ghost shutdown.
+Feb 16 11:43:08.320 HYPERVISOR: exec_cmd: vm extract_config Ghost 
+Feb 16 11:43:08.321 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
+Feb 16 11:43:08.321 VM: VM Ghost destroyed.
+Feb 16 11:43:08.324 HYPERVISOR: exec_cmd: vm set_ghost_status ESW1 2 
+Feb 16 11:43:08.325 HYPERVISOR: exec_cmd: vm set_ghost_file ESW1 /home/tiago/Public/UA/Ano2/RC2/GNS3/aula1/untitled/project-files/dynamips/c3725-advipservicesk9-mz.124-21.image-128.ghost 
+Feb 16 11:43:08.326 HYPERVISOR: exec_cmd: vm get_status ESW1 
+Feb 16 11:43:08.327 HYPERVISOR: exec_cmd: vm set_config ESW1 configs/i2_startup-config.cfg 
+Feb 16 11:43:08.327 HYPERVISOR: exec_cmd: vm start ESW1 
+Feb 16 11:45:08.576 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Feb 16 11:45:08.586 HYPERVISOR: exec_cmd: vm extract_config ESW1 
+Feb 16 11:51:46.333 HYPERVISOR: Stopped.
+Feb 16 11:51:46.460 VM: VM ESW1 shutdown.
+Feb 16 11:51:46.460 VM: VM ESW1 destroyed.
+Feb 16 11:51:46.460 GENERAL: reset done.

@@ -1,0 +1,37 @@
+uBridge version 0.9.18 running with libpcap version 1.10.1 (with TPACKET_V3)
+Hypervisor TCP control server started (IP 127.0.0.1 port 34807).
+UDP tunnel connecting from local port 20003 to IPv4 address 127.0.0.1 on port 20002
+UDP tunnel connecting from local port 20000 to IPv4 address 127.0.0.1 on port 20001
+Source NIO listener thread for DYNAMIPS-20002-20003 has started
+Destination NIO listener thread for DYNAMIPS-20002-20003 has started
+UDP tunnel connecting from local port 20009 to IPv4 address 127.0.0.1 on port 20008
+UDP tunnel connecting from local port 20006 to IPv4 address 127.0.0.1 on port 20007
+Source NIO listener thread for DYNAMIPS-20008-20009 has started
+Destination NIO listener thread for DYNAMIPS-20008-20009 has started
+UDP tunnel connecting from local port 20013 to IPv4 address 127.0.0.1 on port 20012
+UDP tunnel connecting from local port 20011 to IPv4 address 127.0.0.1 on port 20010
+Source NIO listener thread for DYNAMIPS-20012-20013 has started
+Destination NIO listener thread for DYNAMIPS-20012-20013 has started
+UDP tunnel connecting from local port 20017 to IPv4 address 127.0.0.1 on port 20016
+UDP tunnel connecting from local port 20015 to IPv4 address 127.0.0.1 on port 20014
+Source NIO listener thread for DYNAMIPS-20016-20017 has started
+Destination NIO listener thread for DYNAMIPS-20016-20017 has started
+UDP tunnel connecting from local port 20009 to IPv4 address 127.0.0.1 on port 20008
+UDP tunnel connecting from local port 20006 to IPv4 address 127.0.0.1 on port 20007
+Source NIO listener thread for DYNAMIPS-20008-20009 has started
+Destination NIO listener thread for DYNAMIPS-20008-20009 has started
+UDP tunnel connecting from local port 20013 to IPv4 address 127.0.0.1 on port 20012
+UDP tunnel connecting from local port 20010 to IPv4 address 127.0.0.1 on port 20011
+Source NIO listener thread for DYNAMIPS-20012-20013 has started
+Destination NIO listener thread for DYNAMIPS-20012-20013 has started
+UDP tunnel connecting from local port 20017 to IPv4 address 127.0.0.1 on port 20016
+UDP tunnel connecting from local port 20014 to IPv4 address 127.0.0.1 on port 20015
+Source NIO listener thread for DYNAMIPS-20016-20017 has started
+Destination NIO listener thread for DYNAMIPS-20016-20017 has started
+UDP tunnel connecting from local port 20003 to IPv4 address 127.0.0.1 on port 20002
+UDP tunnel connecting from local port 20000 to IPv4 address 127.0.0.1 on port 20001
+Destination NIO listener thread for DYNAMIPS-20002-20003 has started
+Source NIO listener thread for DYNAMIPS-20002-20003 has started
+Hypervisor: closing control sockets.
+Hypervisor: closing remote client connections.
+Hypervisor: stopped.
