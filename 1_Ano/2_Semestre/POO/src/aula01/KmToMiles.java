@@ -1,4 +1,4 @@
-package aula01;
+package src.aula01;
 import java.util.Scanner;
 
 public class KmToMiles {
