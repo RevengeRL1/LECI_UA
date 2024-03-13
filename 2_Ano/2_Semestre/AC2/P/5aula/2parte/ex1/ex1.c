@@ -35,6 +35,7 @@ int main(void){
     TRISDbits.TRISD6 = 0;
 
     // Configure RE0 - RE7 as outputs 
+    TRISE = TRISE & 0xFF00;
 
     unsigned int counter = 0;
     unsigned int delay20ms = 0;
