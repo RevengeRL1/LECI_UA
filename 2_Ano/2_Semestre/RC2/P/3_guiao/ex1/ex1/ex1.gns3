@@ -106,6 +106,24 @@
                 "x": -104,
                 "y": -250,
                 "z": 2
+            },
+            {
+                "drawing_id": "ee740ab6-1444-4f22-9d8a-e35fa432e6e9",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"331\" height=\"28\"><text font-family=\"Noto Sans\" font-size=\"7.0\" font-weight=\"bold\" fill=\"#000000\" fill-opacity=\"1.0\">RIPv2 consegue suportar m\u00e1scaras diferentes.</text></svg>",
+                "x": -74,
+                "y": 154,
+                "z": 2
+            },
+            {
+                "drawing_id": "afeb61a4-6113-4089-86ec-2c7d395e6be9",
+                "locked": false,
+                "rotation": 0,
+                "svg": "<svg width=\"342\" height=\"41\"><rect width=\"342\" height=\"41\" fill=\"#ffffff\" fill-opacity=\"1.0\" stroke-width=\"2\" stroke=\"#000000\" /></svg>",
+                "x": -80,
+                "y": 148,
+                "z": 1
             }
         ],
         "links": [
@@ -433,7 +451,7 @@
         "nodes": [
             {
                 "compute_id": "local",
-                "console": 5001,
+                "console": 5004,
                 "console_auto_start": false,
                 "console_type": "telnet",
                 "custom_adapters": [],
@@ -502,7 +520,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5002,
+                "console": 5005,
                 "console_auto_start": false,
                 "console_type": "telnet",
                 "custom_adapters": [],
@@ -571,7 +589,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5003,
+                "console": 5006,
                 "console_auto_start": false,
                 "console_type": "telnet",
                 "custom_adapters": [],
@@ -640,7 +658,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5004,
+                "console": 5007,
                 "console_auto_start": false,
                 "console_type": "none",
                 "custom_adapters": [],
@@ -720,7 +738,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5005,
+                "console": 5008,
                 "console_auto_start": false,
                 "console_type": "none",
                 "custom_adapters": [],
@@ -800,7 +818,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5006,
+                "console": 5009,
                 "console_auto_start": false,
                 "console_type": "none",
                 "custom_adapters": [],
@@ -880,7 +898,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5007,
+                "console": 5010,
                 "console_auto_start": false,
                 "console_type": "none",
                 "custom_adapters": [],
@@ -960,7 +978,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5008,
+                "console": 5011,
                 "console_auto_start": false,
                 "console_type": "none",
                 "custom_adapters": [],
@@ -1040,7 +1058,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5009,
+                "console": 5012,
                 "console_auto_start": false,
                 "console_type": "none",
                 "custom_adapters": [],
@@ -1120,7 +1138,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5010,
+                "console": 5013,
                 "console_auto_start": false,
                 "console_type": "telnet",
                 "custom_adapters": [],
