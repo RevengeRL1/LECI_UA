@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ShapeTest {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        double radius;
+        double radius, side1, side2, side3;
 
         // Circle tests
         Circle c1 = new Circle(10);
@@ -23,7 +23,7 @@ public class ShapeTest {
 
 
         //Triangle tests
-
+        Triangle t1 = new Triangle(3, 4, 5);
         
         input.close();
     }
