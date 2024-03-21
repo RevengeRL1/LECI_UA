@@ -8,7 +8,7 @@ public class MaxMinAvg {
         int counter = 1;
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Input a real number: ");
+        System.out.print("Input a real number: ");
         first = input.nextDouble();
         min = first;
         max = first;
@@ -16,7 +16,7 @@ public class MaxMinAvg {
 
         do{
             counter++;
-            System.out.println("Input a new number: ");
+            System.out.print("Input a new number: ");
             aux = input.nextDouble();
             if (aux < min){
                 min = aux;
@@ -27,6 +27,10 @@ public class MaxMinAvg {
             avg += aux;
         }while(aux != first);
 
-        
+        avg /= counter;
+
+        System.out.print(String.format("\nMax: %.2f\nMin: %.2f\nAverage: %.2f\n%d numbers\n", max, min, avg, counter));
+
+        input.close();
     }
 }
