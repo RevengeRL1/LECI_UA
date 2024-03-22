@@ -4,6 +4,10 @@ public class Triangle {
     double side1, side2, side3;
 
     public Triangle(double side1, double side2, double side3){
+        assert (side1 > 0 && side2 > 0 && side3 > 0);
+        assert (side1 + side2 > side3);
+        assert (side2 + side3 > side1);
+        assert (side1 + side3 > side2);
         this.side1 = side1;
         this.side2 = side2;
         this.side3 = side3;
@@ -22,8 +26,8 @@ public class Triangle {
     }
 
     public double getArea(){
-        double perimeter = side1 + side2 + side3;
-        return Math.sqrt(perimeter * (perimeter - side1) * (perimeter - side2) * (perimeter * side3));
+        double semiPerimeter = (side1 + side2 + side3) / 2;
+        return Math.sqrt(semiPerimeter * (semiPerimeter - side1) * (semiPerimeter - side2) * (semiPerimeter - side3));
     }
 
     public void setSide1(double newSide1){

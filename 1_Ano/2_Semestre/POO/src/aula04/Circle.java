@@ -4,6 +4,7 @@ public class Circle {
     private double radius;
 
     public Circle(double radius){
+        assert radius > 0;
         this.radius = radius;
     }
 
