@@ -1,0 +1,9 @@
+Apr 26 10:15:50.645 HYPERVISOR: Release 0.2.23-amd64/Linux (tag 2023010200)
+Apr 26 10:15:50.645 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 33163.
+Apr 26 10:15:50.653 HYPERVISOR: exec_cmd: hypervisor version 
+Apr 26 10:15:50.653 HYPERVISOR: exec_cmd: hypervisor working_dir /home/tiago/Public/GitHub/LECI_UA/2_Ano/2_Semestre/RC2/P/5_guiao/ex2/ex2/project-files/dynamips 
+Apr 26 10:15:50.653 GENERAL: working_dir=/home/tiago/Public/GitHub/LECI_UA/2_Ano/2_Semestre/RC2/P/5_guiao/ex2/ex2/project-files/dynamips
+Apr 26 10:15:50.653 HYPERVISOR: exec_cmd: ethsw create Switch3 
+Apr 26 10:15:51.811 HYPERVISOR: exec_cmd: nio create_udp udp-30d265c1-cf4a-4f42-88d2-ae1ac8714e26 20057 127.0.0.1 20056 
+Apr 26 10:15:51.811 HYPERVISOR: exec_cmd: ethsw add_nio Switch3 udp-30d265c1-cf4a-4f42-88d2-ae1ac8714e26 
+Apr 26 10:15:51.831 HYPERVISOR: exec_cmd: ethsw set_access_port Switch3 udp-30d265c1-cf4a-4f42-88d2-ae1ac8714e26 1 
