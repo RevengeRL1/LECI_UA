@@ -1,0 +1,5 @@
+b: bloco, 1; bola, 1; bricks, 1
+e: estouro, 1
+l: lina, 1
+m: merda, 1
+p: podre, 1
