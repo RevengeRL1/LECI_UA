@@ -1,0 +1,48 @@
+Ideia: Quanto mais perto do CPU, mais rápida a memória mas com menor capacidade de armazenamento -> quanto mais perto do CPU, guardar a informação usada mais frequentemente (para aceder mais rapidamente)
+
+    Aceder raramente à memória principal e transferir a informação mais frequente da memória principal para a Cache
+
+
+    registos do CPU -> L1Cache(SRAM) -> L2Cache(SRAM) -> Memória DRAM -> SSD
+
+    Só é possível trocar entre níveis adjacentes
+
+
+
+Como é que a probabilidade da memória mais frequente estar mais próximo do CPU é alta?
+    Princípio da localidade: O CPU e os programas não acedem à memória de forma aleatoria, tipicamene usam endereços que se situam na vizinhança uns dos outros
+
+    Ou seja, num dado intervalo de tempo, um programa acede a uma zona pequena do espaço de end.
+
+    Spacial Locality: Se existe um acesso a um endereço de memória então é provável que os endereços vizinhos sejam acedidos -> a info que o processador precisa a seguir, tem uma prob. alta de estar proxima da atual
+
+    Temporal Locality: Se existe um acesso a um endereço, é provavel que esse endereço seja acedido novamente em breve (loop)
+
+
+
+Podemos dividir a hierarquia em 2 níveis:
+    Primário - rápido e pequeno
+    Secundário - lento e grande
+
+
+    Os pedidos de informação são sempre dirigidos ao nível primário. O nível secundário só se envolve quando a info pretendida não está nesse nível. No entanto, o CPU NUNCA acede à memoria secundaria. A info é transferida para a primária.
+
+    hit/miss
+
+
+    Miss -> Acede-se ao nível secundário e transfere-se o bloco que contém a info pretendida para o nível primário
+
+
+    Hit ratio (taxa de sucesso) = nº hits/nº accesses
+
+    Miss ratio (taxa de sucesso) = 1 - hit ratio
+
+    Hit time -> tempo de acesso quando há hits
+
+    Penalty Time -> tempo de substituir um bloco do nível superior e enviar os dados para o processador = hit time + tempo de acesso ao nivel secundario
+
+
+
+    Tempo de acesso médio = hit_ratio*hit_time + (1-hit_ratio) * penalty_time
+
+    Ex: Hit_rato de 95%, tempo de acesso ao primário de 5ns e tempo de acesso ao secundário de 50ns: T_access = 0,95*5 + 0,05 * (50+5) = 7,5ns

@@ -1,0 +1,70 @@
+Vantagens:
+    Rapido
+    Mantem a memória até perder alimentação
+
+Desvantagens:
+    6 transistors / célula (custo alto por bit)
+
+
+
+Write:
+    Meter o valor no "bit" (e no "bit\")
+    Ex: se quiser meter "1" meto "1" no bit e "0" no bit\
+    Selecionar o "select"
+
+Read:
+    Selecionar o "select"
+    O valor logico lido e a diferença de tensao entre bit e bit\
+
+
+Nota: se o selY=0, bit e bit\ ficam em High-Z
+
+
+
+Organização interna:
+
+    Row decoder e Column com log_2(i) entradas e log_2(j) entradas (i linhas e j colunas)
+
+    CE\ (chip enable/chip select)
+    WE\ (write\) (write enable)
+    OE\ (read\) (output enable)
+
+
+    (i x j) registos com N bits -> colocar em paralelo um array de células com i linhas por j colunas + sense/we amps + I/O buffers
+
+
+
+
+    CE\ = 1 (ou seja, CE = 0) -> High-Z
+    Se OE e WE = 0 (OE\ e WE\ = 1) -> High-Z porque n é para fazer nada
+    Depois, depende de qual estiver ativo
+    No caso de WE e OE = 1 -> Write tem prioridade
+
+
+
+
+Ciclo de leitura de uma SRAM:
+    Cycle time: tempo de acesso + tempo adicional necessário antes que um segundo acesso possa começar
+
+    Access time: tempo necessário para que os dados fiquem disponíveis à saída
+
+    Taxa de transferencia: taxa a que os dados podem ser transferidos de/para uma memória = 1/cycle_time
+
+
+
+Aumentar a capacidade de armazenamento:
+
+    Posso:
+        Aumentar a dimensão da palavra -> a partir de circuitos de 32Kx1, fazer uma memoria de 32Kx8. Não aumento o nº de registos, aumento o número de bits por registos
+
+        Aumentar o nº de posições de memória -> a partir de circuitos de 32Kx8, construir uma memória de 256Kx8
+
+
+
+
+    Aumento da palavra: colocar um conjunto de p registos em paralelo, de forma a que  a dimensão do data bus passe de n para (n x p). desta forma, passa de
+    2^m x n -> 2^m x (n x p)
+
+
+    Aumento do nº total de posições de memória: 2^m x n -> 2^(m + k) x n
+

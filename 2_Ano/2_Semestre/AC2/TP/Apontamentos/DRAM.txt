@@ -1,0 +1,83 @@
+Vantagens:
+    (1 transistor + 1 condensador) / célula
+    Custo por bit baixo
+
+
+Inconvenientes:
+    Informação permanece apenas durante alguns ms (necessita de refresh regular - dynamic)
+    Mais lenta que a SRAM
+
+
+Após uma operação de leitura, é necessário repor a carga no condensador
+
+Write:
+    Colocar dado no "bit"
+    Ativar o "select"
+
+Read:
+    Pre-carregar a linha "bit" com metade da tensão
+    Ativar o select
+    Valor lógico detetado pela diferença da tensão na linha bit com a metade da tensão
+    Restauro do valor da tensão no condensador (write)
+
+Refresh:
+    Operação interna estilo "read"
+    Objetivo é repor o valor que está lá porque vai sendo perdido pelo condensador
+
+
+O endereço de acesso é dividido em duas partes:
+    Row Address e Column Address
+
+    O barramento de endereços é multiplexado -> primeiro envia-se o endereço de linha e depois de coluna. Ou seja, se cada um dos endereços for 16 bits, só preciso de um barramento de 16 bits porque vou enviar o RA e o CA em 2 momentos seguidos
+
+    Esta multiplexagem é controlada por:
+        RAS - Row Address Strobe
+        CAS - Column Address Strobe
+
+        (funcionam em lógica negativa) -> RAS\ = 0 significa que vou mandar o RA, e vice versa
+
+        O CAS tambem funciona como Chip Select
+
+
+Leitura:
+    O Memory Controller gera os sinais RAS CAS e WE, e faz o refresh
+
+    1º - RAS -> Row Access (selecionar a linha)
+    2º - CAS -> Column Access (Selecionar a coluna)
+
+    Row Buffer mantém um registo do valor atual para atualizar no fim da leitura
+
+
+
+
+Refresh (RAS Only):
+    Gerido pelo Memory Controller - Não há troca de info com o exterior
+
+    Só o sinal de RAS é que é usado
+
+    O refresh é feito sequencialmente, linha a linha. Quando dá refresh a uma linha, todas as células dessa linha levam refresh
+
+
+
+
+Aumento da dimensão da palavra:
+
+    2^m x n -> 2^m x (n x p)   (2^m registos de n bits passa a 2^m registos de n*p bits
+
+Aumento do nº total de posições de memória:
+
+    2^m x n -> 2^(m+k) x n (2^m registos de n bits passa a 2^(m+k) registos de n bits
+
+
+
+
+
+Melhorias da DRAM:
+
+    Fast Page Mode - adiciona sinais de temporização que permitem acessos repetidos ao buffer de linha
+
+    Synchronous DRAM (SDRAM) - adiciona um clock à DRAM, facilita a sync de multiplas transferencias
+
+    Double Data Rate (DDR SDRAM) - Transferência de dados tanto no flanco ascendente como no descendente do clock
+
+    ESTAS TECNICAS MELHORAM A TAXA DE TRANSFERENCIA MAS NAO A LATENCIA

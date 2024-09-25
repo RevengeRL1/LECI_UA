@@ -1,0 +1,125 @@
+CPU    <->      Cache       <->         Memoria principal
+    Byte/Word           Block Transfer
+
+
+Ex: Cache recebe endereço do CPU
+        O Bloco que contém o MemAddr está na cache?
+
+        SIM (hit):
+            Lê a cache e envia para o CPU o conteudo
+
+        NÃO (miss):
+            Encontra espaço na cache para um novo bloco
+            Acede à memória principal e lê o bloco que contém o MemAddr
+            Conteúdo do MemAddr é enviado para o CPU
+
+
+
+Ex: Memória de 64K (16bits de endereço) e cache de 8 linhas de 4bytes (32bytes)
+
+    O que acontece é que nas linhas da Cache há cópias de blocos de 4 bytes da memoria
+
+
+
+O processador nunca sabe se o pedido que fez foi buscado à cache ou à memória
+
+
+
+3 formas de organizar Cache:
+    Cache totalmente associativa
+    Cache com mapeamento direto
+    Cache parcialmente associativa
+
+
+NAS EXPLICAÇÕES A SEGUIR CONSIDERAMOS ESPAÇO DE ENDEREÇAMENTO DE 16 BITS (64KB DE MEMÓRIA) (em cada um dos 65.536 endereços armazenamos 1 byte)
+MEMÓRIA CACHE DE 2KB, EM QUE CADA LINHA TEM 8 BYTES (ou seja, temos 2^11/2^3 linhas, 256)
+
+
+Espaço de endereaçamento de 16bits (0x0000 a 0xFFFF)
+Memória cache de 2kB, com 8 bytes por linha -> 256 linhas
+
+Assim, a memória principal pode ser vista com sendo constituída por 2^13 blocos de 8 bytes (2^16/2^3) de 0x0000 a 0x1FFF)
+
+Assim, no endereço de 16 bits, os 3 LSB identificam o byte dentro do bloco e os 13 MSB identificam o bloco. Ex: Address 0x001A: 0000 0000 0001 1010
+                                Bloco, byte 2 dentro do bloco
+
+
+
+
+Mapeamento associativo:
+        Bloco (13 MSB) = Tag
+
+        Quando a Cache copia um bloco da memória -> Tag na Tag Memory e Valid Bit = 1
+        Quando o CPU pede um endereço -> Comparar Tag com a Tag Memory e ver se o Valid Bit = 1. Se a Tag não existir na Tag Memory ou o Valid Bit != 1 -> Copiar para a Cache Memory o Bloco correspondente e meter Valid Bit = 1
+
+
+
+        Vantagens:
+            Qualquer bloco pode ser colocado em qualquer posição da cache
+
+        Desvantagens:
+            A tag tem que ter todos os bits do bloco (usa muito espaço)
+            Todas as entradas da Tag Memory têm de ser analisadas
+            Muitos comparadores
+
+
+Mapeamento direto:
+        Memory address é dividido em 5 bits (tag) + 8 bits (group) + 3 bits (byte)
+
+        O grupo 0 está associado ao Cache Memory 0, etc.
+        Só é possível colocar em cada slot da Cache Memory um bloco do grupo dessa slot
+
+        De resto, é igual ao mapeamento associativo:
+            Tag Memory e Valid Bit
+
+
+        Resumidamente:
+            A cada bloco da memória principal é associada uma linha da cache. O mesmo bloco é sempre colocado na mesma linha
+
+
+        Vantagem:
+            Simplicidade de implementação (menos comparadores, etc)
+
+        Desvantagem:
+            Vários blocos têm associada a mesma linha
+            Num dado instante apenas um bloco de um dado grupo pode estar na cache
+
+        Ou seja, seria bom permitir o armazenamento simultâneo de mais que um bloco do mesmo grupo
+
+
+Mapeamento parcialmente associativo:
+    Memory Address é dividido em 6 bits (tag) + 7 bits (set) + 3 bits (byte)
+
+    A ideia é ter mais do que um bloco do mesmo grupo na mesma linha da cache
+
+
+    Uma cache com associatividade 2 permite que 2 blocos no mesmo grupo possam estar simultaneamente na cache
+
+    A divisão do endereço de memória é igual ao do mapeamento direto (group = set), mas agora há "n" possíveis lugares onde um bloco de um mesmo grupo pode residir (n é a associatividade)
+
+
+
+Política de subsituição de blocos (quando ocorre um miss e está tudo ocupado):
+    FIFO - O bloco que foi carregado há mais tempo é substituido
+
+    LRU - Least Recently Used: é substituido o bloco da cache que está há mais tempo ser ser referenciado
+
+    LFU - Least Frequently Used: Substituído o bloco menos acedido
+
+
+Políticas de Escrita (do CPU):
+    Write-through:
+        Todas as escritas são realizadas ao mesmo tempo na cache e na memória principal (notar que o CPU não escreve diretamente na memória -> o gestor de memória trata disso)
+
+        Se o endereço estiver ausente na cache, atualiza apenas a memória (write-no-allocate)
+
+        A memória principal está sempre consistente
+
+    Write-back:
+        Valor escrito apenas na cache; o valor é escrito na memória quando o bloco da cache é substituído
+
+        "Dirty bit" (bit ativado quando houver uma escrita num endereço do bloco presente na linha da cache -> o dirty bit indica ao gestor de memória que o bloco que está prestes a ser subsituído precisa de ser atualizado na memória)
+
+        Se o endereço estiver ausente na cache, carrega o bloco para a cache e atualiza-o (write-allocate)
+
+        Mais complexo que write-through

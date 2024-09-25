@@ -1,0 +1,43 @@
+SRAM e DRAM (static e dynamic)
+
+SRAM é mais cara por Gb do que DRAM
+
+Uma memória é uma coleção de N registos de dimensão K (N registos de K bits)
+K células, cada uma capaz de armazenar 1 bits
+
+rd\ -> read (assincrono)
+wr\ -> write (habitualmente é um relogio (síncrono)
+sel -> selecionar a operação
+Di/o -> input e output juntos pq n é preciso escrever e ler em simultaneo
+
+
+
+Dimensão do registo (da palavra - Word size)
+    Memorias podem ser organizadas em palavras de 1, 4, 8, 16, 32... bits
+    Número total de words da memoria = word size * nº words
+
+    Ex: Memória de 1k x 8
+
+        8 bits por word
+        1k registos de 8 bits
+        1k = 2^10 -> 10 linhas de endereço -> 1.024 endereços/registos de 1 byte (8 bits)
+
+    Ex: Memórias de 1M x 4
+        4 bits por word
+        1M = 2^20 -> 20 linhas de endereço -> 1.048.576 endereços/registos de 4 bits
+
+
+
+    Organização 2D:
+
+        Número de saídas do decoder = nº de endereços de x bits.
+        Ex: 1M x 4 -> decoder tem 2^20 saídas
+
+    Organização em Matriz:
+
+        Tem Column Decoder e Row Decoder
+        Cada célula tem 2 selects (S1 e S2)
+        A celula só é selecionada se S1 AND S2 = 1
+
+
+
