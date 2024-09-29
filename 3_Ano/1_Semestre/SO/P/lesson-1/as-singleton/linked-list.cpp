@@ -42,6 +42,12 @@ void sllDestroy()
 
 void sllPrint(FILE *fout)
 {
+    SllNode *current = list;
+    while(current != NULL)
+    {
+        fprintf(fout, "Name: %s, NMEC: %u\n", current->reg.name, current->reg.nmec);
+        current = current->next;
+    }
 }
 
 /*******************************************************/
@@ -51,12 +57,56 @@ void sllInsert(uint32_t nmec, const char *name)
     assert(name != NULL && name[0] != '\0');
     assert(!sllExists(nmec));
 
+    SllNode *newNode = (SllNode *)malloc(sizeof(SllNode));
+    SllNode *current = list;
+
+    if (newNode == NULL)
+    {
+        fprintf(stderr, "Memory allocation error!\n");
+        exit(1);
+    }
+
+    newNode->reg.nmec = nmec;
+    newNode->reg.name = strdup(name);
+    newNode->next = NULL;
+
+    if (list == NULL || list->reg.nmec > nmec)
+    {
+        newNode->next = list;
+        list = newNode;
+    }
+
+    else
+    {
+        while(current->next->reg.nmec < nmec)
+        {
+            current = current->next;
+        }
+        newNode->next = current->next;
+        current->next = newNode;
+    }
+     
 }
 
 /*******************************************************/
 
 bool sllExists(uint32_t nmec)
 {
+    if (list == NULL)
+    {
+        return false;
+    }
+    
+    SllNode *current = list;
+
+    while (current != NULL)
+    {
+        if (current->reg.nmec == nmec)
+        {
+            return true;
+        }
+        current = current->next;
+    }
     return false;
 }
 

@@ -136,7 +136,7 @@ const char *sllGetName(SllNode* list, uint32_t nmec)
 
 /*******************************************************/
 
-SllNode* sllLoad(SllNode *list, FILE *fin, bool *ok)
+SllNode* sllLoad(SllNode *list, FILE *fin, bool *ok) // NOT WORKING
 {
     assert(fin != NULL);
 
