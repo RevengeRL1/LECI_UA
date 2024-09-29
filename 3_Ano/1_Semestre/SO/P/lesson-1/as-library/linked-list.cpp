@@ -68,6 +68,13 @@ SllNode* sllInsert(SllNode* list, uint32_t nmec, const char *name)
 
 bool sllExists(SllNode* list, uint32_t nmec)
 {
+    SllNode *current = list;
+    
+    while(current != NULL)
+    {
+        if (current->reg.nmec == nmec){ return true; }
+        current = current->next;
+    }
     return false;
 }
 
@@ -77,6 +84,31 @@ SllNode* sllRemove(SllNode* list, uint32_t nmec)
 {
     assert(list != NULL);
     assert(sllExists(list, nmec));
+
+
+    SllNode *current = list;
+    SllNode *previous = NULL;
+
+    while (current != NULL && current->reg.nmec != nmec)
+    {
+        previous = current;
+        current = current->next;
+    }
+
+    if (current == NULL)
+    {
+        return list;
+    }
+
+    if (previous == NULL)
+    {
+        SllNode* newNode = list->next;
+        free(list);
+        return newNode;
+    }
+
+    previous->next = current->next;
+    free(current);
 
     return list;
 }
@@ -88,6 +120,17 @@ const char *sllGetName(SllNode* list, uint32_t nmec)
     assert(list != NULL);
     assert(sllExists(list, nmec));
 
+    SllNode *current = list;
+
+    while(current != NULL)
+    {
+        if (current->reg.nmec == nmec)
+        {
+            return current->reg.name;
+        }
+        current = current->next;
+    }
+
     return NULL;
 }
 
@@ -97,10 +140,46 @@ SllNode* sllLoad(SllNode *list, FILE *fin, bool *ok)
 {
     assert(fin != NULL);
 
-    if (ok != NULL)
-       *ok = false; // load failure
+    uint32_t nmec;
+    char name[80];
 
-    return NULL;
+    SllNode *newNode, *current;
+
+    if (ok != NULL)
+       *ok = false; 
+
+    while(fscanf(fin, " %79[^:]:%u", name, &nmec) == 2)
+    {
+        newNode = (SllNode*)malloc(sizeof(SllNode));
+        if (newNode == NULL)
+        {
+            printf("Memory allocation failed\n");
+            return list;
+        }
+
+        newNode->reg.nmec = nmec;
+        strcpy(newNode->reg.name, name);
+        newNode->next = NULL;
+
+        if (list == NULL)
+        {
+            list = newNode;
+        }
+        else
+        {
+            current = list;
+            while (current ->next != NULL)
+            {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+
+    if (ok != NULL && list != NULL)
+        *ok = true;
+
+    return list;
 }
 
 /*******************************************************/
