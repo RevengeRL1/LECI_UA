@@ -15,4 +15,3 @@ def soma(lista): return reduzir(lista, lambda h,r0: h+r0, 0)
 # Example: function to check if "x" occurs in "lista"
 def ocorre(x, lista):
     return reduzir(lista, lambda h,r0: h == x or r0, False)
-    
