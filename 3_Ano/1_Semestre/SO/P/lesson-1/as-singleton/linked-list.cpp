@@ -45,7 +45,7 @@ void sllPrint(FILE *fout)
     SllNode *current = list;
     while(current != NULL)
     {
-        fprintf(fout, "Name: %s, NMEC: %u\n", current->reg.name, current->reg.nmec);
+        fprintf(fout, "NMEC: %u, Name: %s\n", current->reg.nmec, current->reg.name);
         current = current->next;
     }
 }
@@ -122,6 +122,17 @@ void sllRemove(uint32_t nmec)
 const char *sllGetName(uint32_t nmec)
 {
     assert(sllExists(nmec));
+
+    SllNode *current = list;
+
+    while(current != NULL)
+    {
+        if (current->reg.nmec == nmec)
+        {
+            return current->reg.name;
+        }
+        current = current->next;
+    }
 
     return NULL;
 }
