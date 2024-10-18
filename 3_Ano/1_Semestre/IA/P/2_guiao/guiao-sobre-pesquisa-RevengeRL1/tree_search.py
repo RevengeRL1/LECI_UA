@@ -108,7 +108,7 @@ class SearchTree:
         return self.solution.depth
 
     # procurar a solucao
-    def search(self):
+    def search(self, limit=None):
         while self.open_nodes != []:
             node = self.open_nodes.pop(0)
             newdepth = node.depth + 1
@@ -117,6 +117,8 @@ class SearchTree:
                 self.solution = node
                 return self.get_path(node)
             
+            if limit != None and node.depth >= limit:
+                continue
             
             lnewnodes = []
             for a in self.problem.domain.actions(node.state):
