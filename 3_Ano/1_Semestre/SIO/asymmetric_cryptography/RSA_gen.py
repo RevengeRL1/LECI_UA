@@ -38,7 +38,5 @@ while True:
             print("Please use a valid key size\n")
     except ValueError:
         print("Invalid input! Please enter a number.\n")
-
-create_private_rsa(size)
     
 
