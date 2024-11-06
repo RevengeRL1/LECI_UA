@@ -89,11 +89,16 @@ void consumerLifeCycle(uint32_t id)
         /* print it */
         uint32_t id1 = item.v1 / 1000000;
         uint32_t id2 = item.v2 / 1000000;
-        bool raceCondition = (item.id == 0) or (item.v1 == 0) or (id1 != item.id) or (id2 != item.id) or (item.v1 != item.v2);
+        bool raceCondition = (id1 != item.id) or (id2 != item.id) or (item.v1 != item.v2);
         if (raceCondition)
             printf("\e[31;01mConsumer %u retrieved (%u,%u,%u) from the fifo\e[0m\n", id, item.id, item.v1, item.v2);
         else if (verbose) 
             printf("\e[36;01mConsumer %u retrieved (%u,%u,%u) from the fifo\e[0m\n", id, item.id, item.v1, item.v2);
+        
+        if((item.id == 0) || (item.v1 == 0)){
+            break;
+        }
+
     }
 }
 
@@ -199,6 +204,12 @@ int main (int argc, char *argv[])
         printf("Producer %u finished\n", i+1);
     }
 
+    Item stopItem = {0, 0, 0};
+    for (uint32_t i = 0; i < nc; i++) {
+        fifoInsert(theFifo, stopItem);
+    }
+    
+
     /* wait for consumers to finish */
     for (uint32_t i = 0; i < nc; i++)
     {
@@ -209,6 +220,7 @@ int main (int argc, char *argv[])
     /* destroy fifo */
     fifoDestroy(theFifo);
 
+    
     return 0;
 }
 
