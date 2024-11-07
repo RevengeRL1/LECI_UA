@@ -20,7 +20,7 @@
 #include  "settings.h"
 
 // TODO point: uncomment the desired implementation
-//#include "thread.h"
+#include "thread.h"
 //#include "process.h"
 
 typedef struct
@@ -35,6 +35,11 @@ typedef struct
    int cnt;  ///< number of items stored
    int is_closed; ///< true when closed
    // TODO point: if necessary, add synchronization declarations here
+
+   pthread_mutex_t mutex;
+   pthread_cond_t closed_or_notFull;
+   pthread_cond_t closed_or_notEmpty;
+
 } PriorityFIFO;
 
 void init_pfifo(PriorityFIFO* pfifo);

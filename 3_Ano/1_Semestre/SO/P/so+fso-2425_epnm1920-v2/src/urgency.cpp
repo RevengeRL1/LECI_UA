@@ -48,6 +48,7 @@ typedef struct
    char name[MAX_NAME+1];
    int done; // 0: waiting for consultation; 1: consultation finished
    // TODO point: if necessary, add new fields here
+
 } Patient;
 
 typedef struct
@@ -56,6 +57,7 @@ typedef struct
    Patient all_patients[MAX_PATIENTS];
    PriorityFIFO triage_queue;
    PriorityFIFO doctor_queue;
+
    // TODO point: if necessary, add new fields here
 } HospitalData;
 
@@ -161,11 +163,12 @@ void patient_wait_end_of_consultation(int id)
 // TODO point: changes are required to this function
 void patient_life(int id)
 {
+   
    patient_goto_urgency(id);
-   nurse_iteration(0);  // TODO point: to be commented/deleted in concurrent version
-   doctor_iteration(0); // TODO point: to be commented/deleted in concurrent version
-   patient_wait_end_of_consultation(id);
-   memset(&(hd->all_patients[id]), 0, sizeof(Patient)); // patient finished
+   // nurse_iteration(0);  // TODO point: to be commented/deleted in concurrent version
+   // doctor_iteration(0); // TODO point: to be commented/deleted in concurrent version
+   // patient_wait_end_of_consultation(id);
+   // memset(&(hd->all_patients[id]), 0, sizeof(Patient)); // patient finished
 }
 
 /* ************************************************* */
@@ -225,13 +228,36 @@ int main(int argc, char *argv[])
    // TODO point: REPLACE THE FOLLOWING DUMMY CODE WITH code to launch
    // active entities and code to properly terminate the simulation.
    /* dummy code to show a very simple sequential behavior */
-   for(int i = 0; i < npatients; i++)
+   /* for(int i = 0; i < npatients; i++)
    {
       printf("\n");
       random_wait(); // random wait for patience creation
       patient_life(i);
    }
    /* end of dummy code */
+
+   pthread_t patients[npatients];
+   pthread_t nurses[nnurses];
+   pthread_t doctors[ndoctors];
+
+   int patients_ids[npatients];
+   int nurses_ids[nnurses];
+   int doctors_ids[ndoctors];
+
+   for(int i = 0; i < npatients; i++){
+      patients_ids[i] = i;
+      thread_create(&patients[i], NULL, patient_main, &patients_ids[i]);
+   }
+
+   for(int i = 0; i < nnurses; i++){
+      nurses_ids[i] = i;
+      thread_create(&nurses[i], NULL, patient_life, &nurses_ids[i]);
+   }
+
+   for(int i = 0; i < ndoctors; i++){
+      doctors_ids[i] = i;
+      thread_create(&doctors[i], NULL, patient_life, &doctors_ids[i]);
+   }
 
    /* close fifos */
    close_pfifo(&hd->triage_queue);

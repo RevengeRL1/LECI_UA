@@ -14,6 +14,11 @@ void init_pfifo(PriorityFIFO* pfifo)
    memset(pfifo->array, 0, sizeof(pfifo->array));
    pfifo->inp = pfifo->out = pfifo->cnt = 0;
    pfifo->is_closed = 0;
+
+   cond_init(&pfifo->closed_or_notEmpty, NULL);
+   cond_init(&pfifo->closed_or_notFull, NULL);
+
+   mutex_init(&pfifo->mutex, NULL);
 }
 
 /* --------------------------------------- */
@@ -34,6 +39,12 @@ void insert_pfifo(PriorityFIFO* pfifo, int id, int priority)
    require (pfifo != NULL, "NULL pointer to FIFO");  // a false value indicates a program error
    require (id >= 0 && id <= MAX_ID, "invalid id");  // a false value indicates a program error
    require (priority > 0 && priority <= MAX_PRIORITY, "invalid priority value");  // a false value indicates a program error
+   
+   mutex_lock(&pfifo->mutex);
+
+   while(!(pfifo->is_closed || !full_pfifo(pfifo))){
+      cond_wait(&pfifo->closed_or_notFull, &pfifo->mutex);
+   }
    require (pfifo->is_closed || !full_pfifo(pfifo), "open FIFO is full");  // IMPORTANT: in a shared fifo, it may not result from a program error!
 
    //printf("[insert_pfifo] value=%d, priority=%d, pfifo->inp=%d, pfifo->out=%d\n", id, priority, pfifo->inp, pfifo->out);
@@ -55,6 +66,9 @@ void insert_pfifo(PriorityFIFO* pfifo, int id, int priority)
       pfifo->inp = (pfifo->inp + 1) % FIFO_MAXSIZE;
       pfifo->cnt++;
       //printf("[insert_pfifo] pfifo->inp=%d, pfifo->out=%d\n", pfifo->inp, pfifo->out);
+
+      cond_broadcast(&pfifo->closed_or_notEmpty);
+      mutex_unlock(&pfifo->mutex);
    }
 }
 
@@ -64,6 +78,13 @@ void insert_pfifo(PriorityFIFO* pfifo, int id, int priority)
 int retrieve_pfifo(PriorityFIFO* pfifo)
 {
    require (pfifo != NULL, "NULL pointer to FIFO");   // a false value indicates a program error
+
+   mutex_lock(&pfifo->mutex);
+
+   while(!(pfifo->is_closed || !empty_pfifo(pfifo))){
+      cond_wait(&pfifo->closed_or_notEmpty, &pfifo->mutex);
+   }
+
    require (pfifo->is_closed || !empty_pfifo(pfifo), "open FIFO is empty");  // IMPORTANT: in a shared fifo, it may not result from a program error!
 
    int result = -1;
@@ -90,6 +111,9 @@ int retrieve_pfifo(PriorityFIFO* pfifo)
 
    ensure ((result >= 0 && result <= MAX_ID) || is_closed_pfifo(pfifo), "OPEN FIFO with an invalid id");  // a false value indicates a program error
 
+   cond_broadcast(&pfifo->closed_or_notFull);
+   mutex_unlock(&pfifo->mutex);
+
    return result;
 }
 
@@ -99,7 +123,13 @@ void close_pfifo(PriorityFIFO* pfifo)
    require (pfifo != NULL, "NULL pointer to FIFO");           // a false value indicates a program error
    require (!is_closed_pfifo(pfifo), "FIFO already closed");  // a false value indicates a program error
 
+   mutex_lock(&pfifo->mutex);
+   
    pfifo->is_closed = 1;
+
+   cond_broadcast(&pfifo->closed_or_notEmpty);
+   cond_broadcast(&pfifo->closed_or_notFull);
+   mutex_unlock(&pfifo->mutex);
 }
 
 // TODO point: synchronization changes may be required in this function
@@ -107,7 +137,11 @@ int is_closed_pfifo(PriorityFIFO* pfifo)
 {
    require (pfifo != NULL, "NULL pointer to FIFO");   // a false value indicates a program error
 
-   return pfifo->is_closed;
+   mutex_lock(&pfifo->mutex);
+   int closed = pfifo->is_closed;
+   mutex_unlock(&pfifo->mutex);
+
+   return closed;
 }
 
 /* --------------------------------------- */
