@@ -15,10 +15,10 @@ void init_pfifo(PriorityFIFO* pfifo)
    pfifo->inp = pfifo->out = pfifo->cnt = 0;
    pfifo->is_closed = 0;
 
+   mutex_init(&pfifo->mutex, NULL);
+
    cond_init(&pfifo->closed_or_notEmpty, NULL);
    cond_init(&pfifo->closed_or_notFull, NULL);
-
-   mutex_init(&pfifo->mutex, NULL);
 }
 
 /* --------------------------------------- */
@@ -27,7 +27,19 @@ void init_pfifo(PriorityFIFO* pfifo)
 void term_pfifo(PriorityFIFO* pfifo)
 {
    require (pfifo != NULL, "NULL pointer to FIFO");  // a false value indicates a program error
+
+   mutex_lock(&pfifo->mutex);
+   while(!pfifo->is_closed)
+   {
+      cond_wait(&pfifo->closed_or_notEmpty, &pfifo->mutex);
+   }
+   mutex_unlock(&pfifo->mutex);
+
    require (is_closed_pfifo(pfifo), "FIFO open");
+
+   mutex_destroy(&pfifo->mutex);
+   cond_destroy(&pfifo->closed_or_notEmpty);
+   cond_destroy(&pfifo->closed_or_notFull);
 
 }
 
@@ -68,8 +80,8 @@ void insert_pfifo(PriorityFIFO* pfifo, int id, int priority)
       //printf("[insert_pfifo] pfifo->inp=%d, pfifo->out=%d\n", pfifo->inp, pfifo->out);
 
       cond_broadcast(&pfifo->closed_or_notEmpty);
-      mutex_unlock(&pfifo->mutex);
    }
+   mutex_unlock(&pfifo->mutex);
 }
 
 /* --------------------------------------- */
@@ -107,12 +119,12 @@ int retrieve_pfifo(PriorityFIFO* pfifo)
             pfifo->array[idx].priority--;
          idx = (idx + 1) % FIFO_MAXSIZE;
       }
+      cond_broadcast(&pfifo->closed_or_notFull);
    }
 
+   mutex_unlock(&pfifo->mutex);
    ensure ((result >= 0 && result <= MAX_ID) || is_closed_pfifo(pfifo), "OPEN FIFO with an invalid id");  // a false value indicates a program error
 
-   cond_broadcast(&pfifo->closed_or_notFull);
-   mutex_unlock(&pfifo->mutex);
 
    return result;
 }
