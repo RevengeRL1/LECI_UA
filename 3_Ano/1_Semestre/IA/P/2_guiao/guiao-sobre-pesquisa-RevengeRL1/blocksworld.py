@@ -118,5 +118,3 @@ print(t.plan)
 print('time=',time.time()-inittime)
 print(len(t.open_nodes),' nodes')
 """
-
-
