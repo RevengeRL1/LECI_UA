@@ -1,0 +1,49 @@
+Funcionamento do repositorio:
+
+1- Criação de uma organization
+	- Necessita de um subject
+	
+2- Criação de um subject
+	- Necessita de um 'session_file' e um 'credential_file'	
+		
+3- Criação de uma session:
+	- Necessita de uma organization
+	- Guarda o "contexto da sessão" em um ficheiro chamado 'session_file'
+	
+4- Uma session está sempre associada a um repositorio de uma organization
+
+5- Uma session é criada quando é feito o login em uma organization. A organization dispõem do 'credential_file' associado ao subject que está a tentar fazer login.
+
+6- É possivel que um subject tenha multiplas sessions em diferentes organizations. Faz sentido uma vez que cada organization tem um 'credentials_file' desse subject.
+
+7- As session keys são usadas para encriptar mensagens trocadas.
+
+8- O 'credential_file' é criado com o comando 'rep_subject_credentials' e não é nada mais do que um par de chaves criado ou com RSA ou com ECC.
+
+9- O comando 'rep_list_subjects' recebe como argumento o 'session_file' e devolve:
+	- Todos os subjects que eu tenho uma session
+ 	- O status de cada subject (active ou suspended)
+ Isto implica que o 'session_file' deve ter pelo menos estas informações
+ 
+
+------------------------------------------------------------------------
+Perguntas: 
+
+1- Loop entre 1 a 3. Como resolver?
+
+2- O "contexto da sessão", é o 'session_file' e o 'credential_file' ou apenas o 'session_file'?
+
+3- O "contexto da sessão" deve se guardar em um ficheiro. Que ficheiro? Onde ele deve ficar?
+
+4- Onde deve ficar guardado o 'credential_file'
+
+5- O comando 'rep_list_docs' recebe como argumento o 'session_file' e devolve uma lista de documentos da organization que eu tenho uma session atualmente. Isto parece implicar que a session file é nossa localmente e apenas serve para mostrar que eu tenho uma session com uma determinada organization. True or False?
+
+------------------------------------------------------------------------
+Respostas:
+
+2- O "contexto da sessão" deve ser guardado no 'session_file'. O credentials file é um ficheiro com chaves.
+
+5- Parece True? O 'session_file' parece ser usado em todos os comandos que é necessário uma session ativa a uma organization, possivelmente para demonstrar que realmente temos uma session ativa. 
+
+ 
