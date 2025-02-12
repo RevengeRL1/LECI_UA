@@ -1,5 +1,4 @@
 
-
 # Guiao de representacao do conhecimento
 # -- Redes semanticas
 # 
@@ -96,4 +95,45 @@ class SemanticNetwork:
         for d in self.query_result:
             print(str(d))
 
+    def list_associations(self):
+        return list(set([a.relation.name for a in self.declarations if(isinstance(a.relation, Association))]))
 
+    def list_objects(self):
+        return list(set([a.relation.entity1 for a in self.declarations if(isinstance(a.relation, Member))]))
+
+    def list_users(self):
+        return list(set([a.user for a in self.declarations]))
+
+    def list_types(self):
+        return list(set([a.relation.entity2 for a in self.declarations if(not isinstance(a.relation, Association))]))
+
+    def list_local_associations(self, ass):
+        return list(set([a.relation.name for a in self.declarations if(isinstance(a.relation, Association) and a.relation.entity1 == ass)]))
+
+    def list_relations_by_user(self, user):
+        return list(set([a.relation.name for a in self.declarations if(a.user == user)]))
+
+    def associations_by_user(self, user):
+        return len(set([a.relation.name for a in self.declarations if(a.user==user and isinstance(a.relation , Association))]))
+
+    def list_local_associations_by_entity(self, ent):
+        return list(set([(d.relation.name, d.user) for d in self.declarations if (d.relation.entity1 == ent or d.relation.entity2 == ent) and isinstance(d.relation, Association) ]))
+
+    # Ex09
+    def predecessor(self, pre1: str, pre2: str):
+        if pre1 == pre2:
+            return True
+        for d in self.declarations:
+            if (isinstance(d.relation, Member) or isinstance(d.relation, Subtype)) and d.relation.entity2 == pre1:
+                if self.predecessor(d.relation.entity1, pre2):
+                    return True
+        return False
+    
+    def predecessor_path(self, pre1: str, pre2: str):
+        if pre1 == pre2:
+            return [pre1]
+        for d in self.declarations:
+            if (isinstance(d.relation, Member) or isinstance(d.relation, Subtype)) and d.relation.entity2 == pre1:
+                if self.predecessor(d.relation.entity1, pre2):
+                    return [pre1] + self.predecessor_path(d.relation.entity1, pre2)
+        return []
